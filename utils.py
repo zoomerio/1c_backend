@@ -1,13 +1,14 @@
 import configparser, os
 
 config = configparser.ConfigParser()
-config["BITRIX"] = {}
-config["BITRIX"]["host"] = "http://127.0.0.1:8080/rest"
-config["BITRIX"]["rest_id"] = ""
-config["BITRIX"]["token"] = ""
 config["LOGGER"] = {}
-config["LOGGER"]["log_file"] = "kgeuSkudBackend.log"
+config["LOGGER"]["log_file"] = "backend.log"
 config["LOGGER"]["log_level"] = "DEBUG"
+config["KEYCLOAK"] = {}
+config["KEYCLOAK"]["host"] = "http://localhost:8080"
+config["KEYCLOAK"]["username"] = "admin"
+config["KEYCLOAK"]["password"] = "password"
+config["KEYCLOAK"]["realms"] = "EDIT_ME!!!"
 
 
 def create_or_update_config_file(path):
@@ -26,13 +27,13 @@ def create_or_update_config_file(path):
         with open(path, "w") as configfile:
             old_config.write(configfile)
 
-
-def find_user_by_patronymic(users, patronymic, except_ids=None):
-    if except_ids is None:
-        except_ids = []
-    for user in users:
-        if user.get("SECOND_NAME"):
-            if user.get("SECOND_NAME").lower() == patronymic.lower() and user.get("ID") not in except_ids:
-                return user
-    return None
+# TODO: DEPRECATED
+# def find_user_by_patronymic(users, patronymic, except_ids=None):
+#     if except_ids is None:
+#         except_ids = []
+#     for user in users:
+#         if user.get("SECOND_NAME"):
+#             if user.get("SECOND_NAME").lower() == patronymic.lower() and user.get("ID") not in except_ids:
+#                 return user
+#     return None
 
